@@ -1,0 +1,52 @@
+controllerda uyeler oluþturdum.View de uyeler_liste oluþturdum.Uyeler controllerýnda
+ $this->load->view('admin/header');
+										    
+ $this->load->view('admin/sidebar');
+										    
+ $this->load->view('admin/uyeler_liste');
+										     
+ $this->load->view('admin/footer'); ile uyeler_liste çaðýrdým.Ve sidebarda ../admin/uyeler ile link gösterdim.
+
+---------------------------------------------------------------------------------------------------------------
+$query=$this->db->get("haberler"); // haberler tablasonu veritananýndan çek
+$data['veri']=$query->result(); // Sorgu sonucu gelen verileri data ya yükle // controllerdan veriyi çektik.viewde bu datayý karþýlayacaz.
+view gelince ise görünecek olan tabloyu <?phpforeach($veri as $rs
+						{
+						
+						<?php
+						}	//burada parantezi kapatmak için php açmak zorundayýz.
+						?>
+
+Database nesnesini kullandýðýmýz zaman yukarýda kütühaneyi çaðýrmalýyýz.
+
+Haber ekleme sayfasýný yaparken orta bostan sayfamýzý oluþturduk.Sonra controllerdan haber.php den ekle fonksiyonu oluþturup haber_ekle yi çaðýrdýk.Haber_ekle sayfasýnda
+header ve sidebar görünmesi görünmesi için 	$this->load->view('admin/header');
+						$this->load->view('admin/sidebar'); 
+						$this->load->view('admin/footer'); ý ekle fonksiyonuna dahil ettik.
+
+Sonra base_url ye(config içerisinde) http://localhost/erkek/ belirttim.sonra ../ olan yere <?=base_url()?> koydum.
+Sonra Home controllera 
+	$this->load->database(); // Sayfada database e eriþmemizi saðlar
+	$this->load->helper(array('form','url')); ekledim.(Ve sonra tüm contorllera koydum).
+
+Sonra Haber-ekle linkine ekle fonksiyonunu ekledim.Sonra ekleme iþlemini yapacaðým formu veritabaný dosyasýndan ekleme viewine ekledim.Action="<?=base_url()?>haberler/kaydet" yaptým.
+Kaydetme yaparken eklenin altýna kaydet fonksiyonu ekledim.Buraya form verilerini alcaz.$data=array(
+													'numara' => $this->input->post('numara'),
+										veritabanýndaki isim<----'adsoy' => $this->input->post('adsoy'),------>formdaki isim
+													'cinsiyet' => $this->input->post('cins')
+														); ile alýyoruz.
+
+Sonra $this->Haberler_Model->insert("haberler",$data); ile modele yolladým.(Haberler veritabanýna datayý yolladým)
+$this->load->model('Ogrenci_Model');----->bunu construct da tanýmladýk.
+Sonra haberler model oluþturdum ve içerisine insert oluþturdum.
+-------------------------------------------------------------------
+En son kalýnan yer=diger bölümler için kaydet ve model oluþturup çalýþtýr.
+----------------------------------------------------------------------
+Anasayfa için kontrollerlar oluþturcaz.Veri çekmemiz gereken her bir part için bu iþlemi tekrar etmeliyiz.
+Veritabanýmýza acýklama kýsmý eklemeliyiz.en son anasayfa düzeltmelerinde kaldýk.
+------------------------------------------------------------------------
+veritabanýndan en son veriyi çekme
+select * from teknoloji order by id desc limit 0, 1
+
+
+þifre:akif1905

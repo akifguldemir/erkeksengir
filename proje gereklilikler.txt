@@ -1,0 +1,144 @@
+
+--------------------------------
+
+--yorum yaptýgým bir paylaþýma yorum gelince bildirim almam lazým
+
+ilk gelen fotoðraf Id si=$Id
+
+   $(".fa").click(function(e) {
+          if ($(this).html() == "Beðen") {
+              $(this).html('Beðendin');
+              $(this).css({ 'color': 'red'});
+          }
+          else {
+              $(this).html('Beðen');
+              $(this).css({ 'color': 'blue'});
+          }
+          return false;
+      });
+
+
+durumu 0 olan mesajý belirt geldiðinde
+-----------------
+            <?php 
+            
+              if($mesajbildirim) { ?>
+      				<li>
+      					<a href="<?=base_url()?>profil/mesajlar">
+      					<i class="glyphicon glyphicon-envelope"></i>
+      					<font color="black">Mesajlar <img src="<?=base_url()?>uploads/message.gif" width="20" height="20"> </font> </a>
+      				</li>
+            
+            <?php } else { ?>
+                    <li>
+                    <a href="<?=base_url()?>profil/mesajlar">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                    <font color="black">Mesajlar</font> </a>
+                  </li>
+
+            <?php }  ?>
+------------------------------
+forum çaðýrma
+forum bildirimi
+video ++
+------------------------
+upload_max_filesize :2
+post_max_size :8
+memory_limit :1280
+-----------------------
+eðer kendi paylaþýmýma yorum yapýyorsam bildirim kaydetme
+galerine yorum bildirimi yap
+------------------------------------
+baþkasý duvarýmýza paylaþým yaptýgýnda onun bildirimini almamýz lazým
+ybnprofil dzenleme donusu duzelt
+mesaja resim ekleme yapýlabilir.
+ybnprofile video eklemeyi yap.
+----------------------------------
+controllerdan view e ekstra Id göndermek..
+
+public function gezidetay($Id)
+		{	
+			$_session=$this->session->userdata('logged_in');
+			$this->db->select('*');
+			$this->db->from('fgeziyorum');
+			$this->db->where('konuId',$Id);
+			$query= $this->db->get();				
+			$data['fgeziyorum'] = $query->result(); 
+			
+			$data['gezidonId']=$Id;
+
+			$this->load->view('forum/gezidetay',$data);
+		}
+
+view=<?=$gezidonId?>
+------------------------------------------
+controllera gelen bilgiyle where_clause la ayný kontrollerda bilgi çekebiliriz.
+profil controllera 145.satýr
+forum sayfalama
+-------------------------------------------
+Kiþi
+ <div style="background-color: #EFF1F2; width: 500px; height:60px; ">
+ <div style="float: left;background-color: red;max-height:50px;width: 50px;margin-top:5px;margin-bottom: 5px;margin-left: 5px; border-radius: 2px; ">
+ <img src="<?=base_url()?>uploads/akif.jpg">
+ </div>
+ <br>&emsp;<font size="4">Akif Güldemir</font>
+ </div>
+-----------------------------------
+galeridetaylarýn resim boyutlarýný düzelt
+birisi duvarýma paylaþým yaptýgýnda ve yorum yaptýgým paylaþýma yorum yaptýgýnda
+mesajlasma duzelt
+mesaj isteði
+-----------------------------------------
+ <script type="text/javascript">
+          function paybegen(Id,kimeId)
+          {
+            var data= 'Id='+ encodeURIComponent(Id) + '&kimeId='+ encodeURIComponent(kimeId)
+              $.ajax({
+                      type: "POST",
+                      url: "<?=base_url()?>profil/paybegen ",
+                      data: data,
+                      success: function (response) {
+                       alert('ok');
+                       
+                        
+                      }
+                  });
+          }
+      </script>
+----------------------
+mesaj okundu dene
+-----------------------
+yorum tasarým
+ <a href="<?=base_url()?>profil/ybnprofil/'+data[i].kimId+'" onclick="acil();" target=blank><li>         
+                                 <div style="background-color: white; width: 300px; height:60px; ">
+                                     <div style="float: left;background-color: red;max-height:50px;width: 50px;margin-top:5px;margin-bottom: 5px;margin-left: 5px; border-radius: 2px; ">
+                                     <img src="<?=base_url()?>uploads/standartpic.png">
+                                     </div>
+                                     &emsp;<font size="3">data[i].kimAd sizi takip etti.<br>&emsp;<font size="1">data[i].tarih</font></font>
+                                 </div>           
+                              </li></a>
+----------------------------------------------
+      html+='<a href="<?=base_url()?>profil/CekIdKaydet/'+data[i].kimId+'">'+'<li>'+          
+                                 '<div style="background-color: white; width: 300px; height:60px; ">'+
+                                     '<div style="float: left;background-color: red;max-height:50px;width: 45px;margin-top:5px;margin-bottom: 5px;margin-left: 5px; border-radius: 4px; ">'+
+                                     '<img src="<?=base_url()?>uploads/'+data[i].kimimg+'">'+
+                                     '</div>'+
+                                     '&emsp;'+'<font size="3">'+data[i].kimad+' gönderdi.'+'<br>&emsp;<font size="1">'+data[i].tarih+'</font></font>'+
+                                 '</div>'+            
+                              '</li>'+'</a>';
+-------------------------------------------------
+<a href="<?=base_url()?>profil/CekIdKaydet"><li>          
+                                 <div style="background-color: #F5F6F7; width: 330px; height:60px; ">
+                                     <div style="float: left;background-color:white: red;max-height:60px;width: 50px;margin-top:5px;margin-bottom: 5px;margin-left: 5px; border-radius: 4px; ">
+                                     <img src="<?=base_url()?>uploads/<?=$rs->kimiimg?>">
+                                     </div>
+                                     &emsp;<font color="black" size="2"><?=$rs->kimiad?><br>&emsp;<font size="1"></font></font>
+                                 </div>            
+                              </li></a>;
+-------------------
+div yanýp sönmesi
+------------------
+
+kayýt olma alert duzet
+----------------------
+                     
